@@ -1,5 +1,6 @@
 package com.app.service.impl;
 
+
 import org.springframework.stereotype.Service;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -10,6 +11,7 @@ import com.app.repository.UserRepository;
 import com.app.service.UserService;
 import java.util.Optional;
 import com.app.dto.LoginRequest;
+import com.app.security.JwtUtil;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -66,7 +68,9 @@ public class UserServiceImpl implements UserService {
 			return "Invalid Password";
 			
 		}
-		return "Login Successful";
+		String token = JwtUtil.generateToken(user.getEmail());
+
+        return token;
 				
 				
 	}
